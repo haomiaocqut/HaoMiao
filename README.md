@@ -1,2 +1,2 @@
 # HaoMiao
-My first repository on GitHub
+重庆理工大学 on GitHub
