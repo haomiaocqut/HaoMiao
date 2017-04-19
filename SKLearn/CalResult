@@ -1,9 +1,0 @@
-from sklearn import metrics
-
-def calculate_result(actual,pred):
-    m_precision = metrics.precision_score(actual,pred,average='weighted')
-    m_recall = metrics.recall_score(actual,pred,average='weighted')
-    print ('predict info:')
-    print ('precision:{0:.3f}'.format(m_precision))
-    print ('recall:{0:0.3f}'.format(m_recall))
-    print ('f1-score:{0:.3f}'.format(metrics.f1_score(actual,pred,average='weighted')))
