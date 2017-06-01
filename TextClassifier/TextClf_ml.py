@@ -2,11 +2,8 @@ from sklearn.datasets import fetch_20newsgroups
 #all categories
 #newsgroup_train = fetch_20newsgroups(subset='train')
 #part categories
-categories = ['comp.graphics',
- 'comp.os.ms-windows.misc',
- 'comp.sys.ibm.pc.hardware',
- 'comp.sys.mac.hardware',
- 'comp.windows.x'];
+categories = ['alt.atheism','comp.graphics','comp.os.ms-windows.misc','comp.sys.ibm.pc.hardware','comp.sys.mac.hardware','comp.windows.x','misc.forsale','rec.autos','rec.motorcycles','rec.sport.baseball',
+              'rec.sport.hockey','sci.crypt','sci.electronics','sci.med','sci.space','soc.religion.christian','talk.politics.guns','talk.politics.mideast','talk.politics.misc','talk.religion.misc'];
 newsgroup_train = fetch_20newsgroups(subset = 'train',categories = categories)
 newsgroup_test = fetch_20newsgroups(subset='test',categories= categories)
 
@@ -83,6 +80,14 @@ def calculate_result(actual,pred):
     print ('f1-score:{0:.3f}'.format(metrics.f1_score(actual,pred,average='weighted')))
 
 ######################################################
+#KMeans Cluster
+from sklearn.cluster import KMeans
+print ('*************************\nKMeans\n*************************')
+pred = KMeans(n_clusters=20)
+pred.fit(fea_test)
+calculate_result(newsgroup_test.target,pred.labels_)
+
+######################################################
 # Multinomial Naive Bayes Classifier
 print ('*************************\nNaive Bayes\n*************************')
 from sklearn.naive_bayes import MultinomialNB
@@ -115,11 +120,3 @@ svclf = SVC(kernel='linear')  # default with 'rbf'
 svclf.fit(fea_train, newsgroup_train.target)
 pred = svclf.predict(fea_test)
 calculate_result(newsgroup_test.target, pred)
-
-######################################################
-#KMeans Cluster
-from sklearn.cluster import KMeans
-print ('*************************\nKMeans\n*************************')
-pred = KMeans(n_clusters=5)
-pred.fit(fea_test)
-calculate_result(newsgroup_test.target,pred.labels_)
